@@ -49,8 +49,16 @@ class FlashCardSet {
                 idx++;
             }
         }
-        void rmv(int id) {
+        void rmv(const int id) {
             set.erase(id);
+        }
+        
+        void edit(const int id, const string q, const string a) {
+            set[id] = Card(q, a);
+        }
+        
+        void edit(const int id, const Card card) {
+            set[id] = card;
         }
         
         void print() {
@@ -58,6 +66,33 @@ class FlashCardSet {
                 if (pair.first == -1) continue;
                 cout << "id" << pair.first << endl;
                 pair.second.print();
+            }
+        }
+        
+        
+        void review() {
+            stack<Card> unread;
+            stack<Card> read;
+            
+            for(auto& pair : set) {
+                if (pair.first == - 1) continue;
+                unread.push(pair.second);
+            }
+            
+            while(true) {
+                char cmd;
+                unread.top().print();
+                cin >> cmd;
+                
+                if (cmd == 'g' && !unread.empty()) {
+                    Card val = unread.top();
+                    unread.pop();
+                    read.push(val);
+                } else if (cmd == 'b' && !read.empty()) {
+                    Card val = read.top();
+                    read.pop();
+                    unread.push(val);
+                }
             }
         }
 };
@@ -72,6 +107,8 @@ int main(void) {
     cards.rmv(1);
     cards.add(c);
     cards.add(b);
+    cards.edit(1, "haha", "lolol");
     cards.print();
+    cards.review();
     return 0;   
 }
