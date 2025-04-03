@@ -4,22 +4,27 @@
 
 using namespace std;
 
+enum diff {EASY = 1, MEDIUM = 2, HARD = 3};
+
 class Card {
     private:
+        diffi difficulty;
         string question;
         string answer;
     public:
         //constructors
-        Card(const string q = "", const string a = ""): question(q), answer(a) {}
+        Card(const string q = "", const string a = "", const diffi d): question(q), answer(a), difficulty(d) {}
         
         //set-get functions
         string getQ() const {return question;}
         string getA() const {return answer;}
+        diffi getD() const {return difficulty;}
         void setQ(const string q) {question = q;}
         void setA(const string a) {answer = a;}
+        void setD(const diffi d) {difficulty = d;}
         
         void print() {
-            cout << "Q: " << question << "\n" << "A: " << answer << "\n" << endl;
+            cout << "Q: " << question << "\n" << "A: " << answer << "\n"  << "D: " << int(difficulty) << "\n" << endl;
         }
 };
 
@@ -36,7 +41,7 @@ class FlashCardSet {
         
     public:
         FlashCardSet() {
-            set[-1] = Card("null question", "null answer");
+            set[-1] = Card("null question", "null answer", EASY);
         }
         
         void add(const Card cardtoAdd) {
@@ -49,15 +54,16 @@ class FlashCardSet {
                 idx++;
             }
         }
+        
         void rmv(const int id) {
             set.erase(id);
         }
         
-        void edit(const int id, const string q, const string a) {
+        void set(const int id, const string q, const string a, const DIFFICULTY d) {
             set[id] = Card(q, a);
         }
         
-        void edit(const int id, const Card card) {
+        void set(const int id, const Card card) {
             set[id] = card;
         }
         
@@ -99,15 +105,15 @@ class FlashCardSet {
 
 int main(void) {
     FlashCardSet cards;
-    Card a("a", "b");
-    Card b("c", "d");
-    Card c("e", "f");
+    Card a("a", "b", EASY);
+    Card b("c", "d", EASY);
+    Card c("e", "f", EASY);
     cards.add(a);
     cards.add(b);
     cards.rmv(1);
     cards.add(c);
     cards.add(b);
-    cards.edit(1, "haha", "lolol");
+    cards.set(1, "haha", "lolol");
     cards.print();
     cards.review();
     return 0;   
