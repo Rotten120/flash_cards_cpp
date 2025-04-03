@@ -4,7 +4,7 @@
 
 using namespace std;
 
-enum diff {EASY = 1, MEDIUM = 2, HARD = 3};
+enum diffi {EASY = 1, MEDIUM = 2, HARD = 3};
 
 class Card {
     private:
@@ -59,11 +59,11 @@ class FlashCardSet {
             set.erase(id);
         }
         
-        void set(const int id, const string q, const string a, const DIFFICULTY d) {
+        void edit(const int id, const string q, const string a, const diffi d) {
             set[id] = Card(q, a);
         }
         
-        void set(const int id, const Card card) {
+        void edit(const int id, const Card card) {
             set[id] = card;
         }
         
@@ -113,7 +113,7 @@ int main(void) {
     cards.rmv(1);
     cards.add(c);
     cards.add(b);
-    cards.set(1, "haha", "lolol");
+    cards.edit(1, "haha", "lolol");
     cards.print();
     cards.review();
     return 0;   
