@@ -113,7 +113,7 @@ int main(void) {
     cards.rmv(1);
     cards.add(c);
     cards.add(b);
-    cards.edit(1, "haha", "lolol");
+    cards.edit(1, "haha", "lolol", HARD);
     cards.print();
     cards.review();
     return 0;   
